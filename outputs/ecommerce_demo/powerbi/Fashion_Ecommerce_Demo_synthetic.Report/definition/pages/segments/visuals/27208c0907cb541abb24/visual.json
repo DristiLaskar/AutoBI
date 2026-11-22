@@ -1,0 +1,79 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "name": "27208c0907cb541abb24",
+  "position": {
+    "x": 753.0,
+    "y": 15.0,
+    "z": 5000,
+    "height": 225.0,
+    "width": 507.0,
+    "tabOrder": 5000
+  },
+  "visual": {
+    "visualType": "clusteredBarChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dim_Customers"
+                    }
+                  },
+                  "Property": "age_Group"
+                }
+              },
+              "queryRef": "Dim_Customers.age_Group",
+              "nativeQueryRef": "age_Group",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_Orders"
+                    }
+                  },
+                  "Property": "Total net amount"
+                }
+              },
+              "queryRef": "Fact_Orders.Total net amount",
+              "nativeQueryRef": "Total net amount"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true,
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'net amount by age Group'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

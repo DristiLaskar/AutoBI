@@ -1,0 +1,64 @@
+// AutoBI generated measures (already inside the semantic model; copy if you build the model manually)
+
+Records =
+    COUNTROWS('Fact_Credit_Card')
+
+Unique Clients =
+    DISTINCTCOUNT('Fact_Credit_Card'[Client_Num])
+
+Total Revenue =
+    SUM('Fact_Credit_Card'[Revenue])
+
+Total Annual Fees =
+    SUM('Fact_Credit_Card'[Annual_Fees])
+
+Total Customer Acq Cost =
+    SUM('Fact_Credit_Card'[Customer_Acq_Cost])
+
+Total Revolving Bal =
+    SUM('Fact_Credit_Card'[Total_Revolving_Bal])
+
+Total Trans Amt =
+    SUM('Fact_Credit_Card'[Total_Trans_Amt])
+
+Total Trans Vol =
+    SUM('Fact_Credit_Card'[Total_Trans_Vol])
+
+Total Interest Earned =
+    SUM('Fact_Credit_Card'[Interest_Earned])
+
+Avg Revenue per Record =
+    AVERAGE('Fact_Credit_Card'[Revenue])
+
+Activation 30 Days Rate =
+    AVERAGE('Fact_Credit_Card'[Activation_30_Days])
+
+Avg Credit Limit =
+    AVERAGE('Fact_Credit_Card'[Credit_Limit])
+
+Avg Utilization Ratio =
+    AVERAGE('Fact_Credit_Card'[Avg_Utilization_Ratio])
+
+Delinquent Acc Rate =
+    AVERAGE('Fact_Credit_Card'[Delinquent_Acc])
+
+Avg Customer Age =
+    AVERAGEX('Fact_Credit_Card', RELATED('Dim_Customer'[Customer_Age]))
+
+Avg Income =
+    AVERAGEX('Fact_Credit_Card', RELATED('Dim_Customer'[Income]))
+
+Revenue % of Total =
+    DIVIDE([Total Revenue], CALCULATE([Total Revenue], ALLSELECTED()))
+
+Revenue MoM % =
+    VAR cur = [Total Revenue] VAR prev = CALCULATE([Total Revenue], DATEADD('Dim_Date'[Date], -1, MONTH)) RETURN IF(NOT ISBLANK(prev), DIVIDE(cur - prev, prev))
+
+Revenue YTD =
+    TOTALYTD([Total Revenue], 'Dim_Date'[Date])
+
+Delinquent Acc Count =
+    SUM('Fact_Credit_Card'[Delinquent_Acc])
+
+Delinquent Acc Lift vs Overall =
+    DIVIDE([Delinquent Acc Rate], CALCULATE([Delinquent Acc Rate], ALLSELECTED()))

@@ -1,0 +1,110 @@
+table Dim_Customer
+
+	column Client_Num
+		dataType: int64
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: Client_Num
+
+	column Customer_Age
+		dataType: int64
+		formatString: #,0
+		summarizeBy: none
+		sourceColumn: Customer_Age
+
+	column Gender
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Gender
+
+	column Dependent_Count
+		dataType: int64
+		formatString: #,0
+		summarizeBy: none
+		sourceColumn: Dependent_Count
+
+	column Education_Level
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Education_Level
+
+	column Marital_Status
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Marital_Status
+
+	column state_cd
+		dataType: string
+		summarizeBy: none
+		sourceColumn: state_cd
+
+	column Zipcode
+		dataType: int64
+		formatString: #,0
+		summarizeBy: none
+		sourceColumn: Zipcode
+
+	column Car_Owner
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Car_Owner
+
+	column House_Owner
+		dataType: string
+		summarizeBy: none
+		sourceColumn: House_Owner
+
+	column Personal_loan
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Personal_loan
+
+	column contact
+		dataType: string
+		summarizeBy: none
+		sourceColumn: contact
+
+	column Customer_Job
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Customer_Job
+
+	column Income
+		dataType: int64
+		formatString: #,0
+		summarizeBy: none
+		sourceColumn: Income
+
+	column Cust_Satisfaction_Score
+		dataType: int64
+		formatString: #,0
+		summarizeBy: none
+		sourceColumn: Cust_Satisfaction_Score
+
+	column Source_File
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: Source_File
+
+	column Customer_Age_Group
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Customer_Age_Group
+
+	column Income_Band
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Income_Band
+
+	partition Dim_Customer = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataFolder & "\Dim_Customer.csv"), [Delimiter=",", Columns=18, Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers", {{"Client_Num", Int64.Type}, {"Customer_Age", Int64.Type}, {"Gender", type text}, {"Dependent_Count", Int64.Type}, {"Education_Level", type text}, {"Marital_Status", type text}, {"state_cd", type text}, {"Zipcode", Int64.Type}, {"Car_Owner", type text}, {"House_Owner", type text}, {"Personal_loan", type text}, {"contact", type text}, {"Customer_Job", type text}, {"Income", Int64.Type}, {"Cust_Satisfaction_Score", Int64.Type}, {"Source_File", type text}, {"Customer_Age_Group", type text}, {"Income_Band", type text}}, "en-US")
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table

@@ -1,0 +1,38 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "name": "6c7559b82f975eaaac24",
+  "position": {
+    "x": 1063.3333333333333,
+    "y": 15.0,
+    "z": 5000,
+    "height": 90.0,
+    "width": 196.66666666666666,
+    "tabOrder": 5000
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_Credit_Card"
+                    }
+                  },
+                  "Property": "Total Annual Fees"
+                }
+              },
+              "queryRef": "Fact_Credit_Card.Total Annual Fees",
+              "nativeQueryRef": "Total Annual Fees"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

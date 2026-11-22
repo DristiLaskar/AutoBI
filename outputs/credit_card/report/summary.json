@@ -1,0 +1,480 @@
+{
+  "name": "Credit Card Analytics",
+  "generated": "2026-11-22 13:32",
+  "sources": {
+    "cc_add": {
+      "encoding": "utf-8-sig",
+      "delimiter": ",",
+      "file": "cc_add.csv"
+    },
+    "credit_card": {
+      "encoding": "utf-8-sig",
+      "delimiter": ",",
+      "file": "credit_card.csv"
+    },
+    "cust_add": {
+      "encoding": "utf-8-sig",
+      "delimiter": ",",
+      "file": "cust_add.csv"
+    },
+    "customer": {
+      "encoding": "utf-8-sig",
+      "delimiter": ",",
+      "file": "customer.csv"
+    }
+  },
+  "tables": {
+    "Fact_Credit_Card": {
+      "rows": 10293,
+      "cols": 22
+    },
+    "Dim_Customer": {
+      "rows": 10293,
+      "cols": 18
+    },
+    "Dim_Date": {
+      "rows": 365,
+      "cols": 11
+    }
+  },
+  "fact": "Fact_Credit_Card",
+  "dims": [
+    "Dim_Customer"
+  ],
+  "relationships": [
+    {
+      "from_table": "Fact_Credit_Card",
+      "from_col": "Client_Num",
+      "to_table": "Dim_Customer",
+      "to_col": "Client_Num",
+      "cardinality": "many_to_one",
+      "match_pct": 100.0,
+      "observed_one_to_one": true
+    },
+    {
+      "from_table": "Fact_Credit_Card",
+      "from_col": "Week_Start_Date",
+      "to_table": "Dim_Date",
+      "to_col": "Date",
+      "cardinality": "many_to_one",
+      "match_pct": 100.0,
+      "observed_one_to_one": false
+    }
+  ],
+  "date": {
+    "fact_column": "Week_Start_Date",
+    "dim_table": "Dim_Date",
+    "dim_column": "Date",
+    "min": "2023-01-01",
+    "max": "2023-12-31",
+    "n_dates": 53,
+    "span_days": 365,
+    "grain": "weekly"
+  },
+  "appends": [
+    {
+      "base": "credit_card",
+      "appended": "cc_add",
+      "rows_added": 185,
+      "columns_matched": 18,
+      "schema_drift_repaired": [
+        {
+          "from": "Total_Trans_Ct",
+          "to": "Total_Trans_Vol",
+          "name_similarity": 0.8
+        }
+      ]
+    },
+    {
+      "base": "customer",
+      "appended": "cust_add",
+      "rows_added": 185,
+      "columns_matched": 15,
+      "schema_drift_repaired": []
+    }
+  ],
+  "model_log": [
+    "appended 'cc_add' (185 rows) onto 'credit_card' - repaired column-name drift: Total_Trans_Ct->Total_Trans_Vol",
+    "appended 'cust_add' (185 rows) onto 'customer'",
+    "derived column Revenue = Interest_Earned + Annual_Fees",
+    "derived column Net_Revenue = Interest_Earned + Annual_Fees - Customer_Acq_Cost",
+    "added band column customer.Customer_Age_Group from Customer_Age",
+    "added band column credit_card.Credit_Limit_Band from Credit_Limit",
+    "added band column customer.Income_Band from Income"
+  ],
+  "cleaning": [
+    {
+      "table": "cc_add",
+      "rows_in": 185,
+      "cols_in": 18,
+      "warnings": [],
+      "actions": [
+        "trimmed stray spaces in Use_Chip (185 cells)"
+      ],
+      "renamed_columns": {
+        "Use Chip": "Use_Chip",
+        "Exp Type": "Exp_Type"
+      },
+      "whitespace_fixed": {
+        "Use_Chip": 185
+      },
+      "numeric_recovered": [
+        "Client_Num",
+        "Annual_Fees",
+        "Activation_30_Days",
+        "Customer_Acq_Cost",
+        "current_year",
+        "Credit_Limit",
+        "Total_Revolving_Bal",
+        "Total_Trans_Amt",
+        "Total_Trans_Ct",
+        "Avg_Utilization_Ratio",
+        "Interest_Earned",
+        "Delinquent_Acc"
+      ],
+      "dates": {
+        "Week_Start_Date": {
+          "format": "%d-%m-%Y",
+          "ambiguous": false,
+          "unparsed": 0
+        }
+      },
+      "duplicates_removed": 0,
+      "rows_out": 185,
+      "cols_out": 18,
+      "source": {
+        "encoding": "utf-8-sig",
+        "delimiter": ",",
+        "file": "cc_add.csv"
+      }
+    },
+    {
+      "table": "credit_card",
+      "rows_in": 10108,
+      "cols_in": 18,
+      "warnings": [],
+      "actions": [
+        "trimmed stray spaces in Use_Chip (10,108 cells)"
+      ],
+      "renamed_columns": {
+        "Use Chip": "Use_Chip",
+        "Exp Type": "Exp_Type"
+      },
+      "whitespace_fixed": {
+        "Use_Chip": 10108
+      },
+      "numeric_recovered": [
+        "Client_Num",
+        "Annual_Fees",
+        "Activation_30_Days",
+        "Customer_Acq_Cost",
+        "current_year",
+        "Credit_Limit",
+        "Total_Revolving_Bal",
+        "Total_Trans_Amt",
+        "Total_Trans_Vol",
+        "Avg_Utilization_Ratio",
+        "Interest_Earned",
+        "Delinquent_Acc"
+      ],
+      "dates": {
+        "Week_Start_Date": {
+          "format": "%d-%m-%Y",
+          "ambiguous": false,
+          "unparsed": 0
+        }
+      },
+      "duplicates_removed": 0,
+      "rows_out": 10108,
+      "cols_out": 18,
+      "source": {
+        "encoding": "utf-8-sig",
+        "delimiter": ",",
+        "file": "credit_card.csv"
+      }
+    },
+    {
+      "table": "cust_add",
+      "rows_in": 185,
+      "cols_in": 15,
+      "warnings": [],
+      "actions": [],
+      "numeric_recovered": [
+        "Client_Num",
+        "Customer_Age",
+        "Dependent_Count",
+        "Zipcode",
+        "Income",
+        "Cust_Satisfaction_Score"
+      ],
+      "duplicates_removed": 0,
+      "rows_out": 185,
+      "cols_out": 15,
+      "source": {
+        "encoding": "utf-8-sig",
+        "delimiter": ",",
+        "file": "cust_add.csv"
+      }
+    },
+    {
+      "table": "customer",
+      "rows_in": 10108,
+      "cols_in": 15,
+      "warnings": [],
+      "actions": [],
+      "numeric_recovered": [
+        "Client_Num",
+        "Customer_Age",
+        "Dependent_Count",
+        "Zipcode",
+        "Income",
+        "Cust_Satisfaction_Score"
+      ],
+      "duplicates_removed": 0,
+      "rows_out": 10108,
+      "cols_out": 15,
+      "source": {
+        "encoding": "utf-8-sig",
+        "delimiter": ",",
+        "file": "customer.csv"
+      }
+    }
+  ],
+  "quality": [
+    {
+      "table": "Fact_Credit_Card",
+      "column": "current_year",
+      "type": "constant",
+      "severity": "low",
+      "detail": "single value in every row - carries no information (hidden from slicers)"
+    },
+    {
+      "table": "Fact_Credit_Card",
+      "column": "Total_Trans_Amt",
+      "type": "outliers",
+      "severity": "low",
+      "detail": "757 extreme values (beyond 3xIQR) - kept, not removed"
+    },
+    {
+      "table": "Fact_Credit_Card",
+      "column": "Interest_Earned",
+      "type": "outliers",
+      "severity": "low",
+      "detail": "324 extreme values (beyond 3xIQR) - kept, not removed"
+    },
+    {
+      "table": "Fact_Credit_Card",
+      "column": "Revenue",
+      "type": "outliers",
+      "severity": "low",
+      "detail": "320 extreme values (beyond 3xIQR) - kept, not removed"
+    },
+    {
+      "table": "Fact_Credit_Card",
+      "column": "Net_Revenue",
+      "type": "outliers",
+      "severity": "low",
+      "detail": "322 extreme values (beyond 3xIQR) - kept, not removed"
+    },
+    {
+      "table": "Dim_Customer",
+      "column": "Zipcode",
+      "type": "near_constant",
+      "severity": "medium",
+      "detail": "97.8% of rows share one value - unusable as a dimension / geo key"
+    },
+    {
+      "table": "Dim_Customer",
+      "column": "Income",
+      "type": "outliers",
+      "severity": "low",
+      "detail": "10 extreme values (beyond 3xIQR) - kept, not removed"
+    }
+  ],
+  "primary_measure": "Revenue",
+  "target": "Delinquent_Acc",
+  "entity": "Client_Num",
+  "kpis": [
+    {
+      "label": "Records",
+      "column": null,
+      "agg": "rows",
+      "fmt": "int",
+      "value": 10293
+    },
+    {
+      "label": "Unique Clients",
+      "column": "Client_Num",
+      "agg": "distinct",
+      "fmt": "int",
+      "value": 10293
+    },
+    {
+      "label": "Total Revenue",
+      "column": "Revenue",
+      "agg": "sum",
+      "fmt": "num",
+      "value": 10983989.809999999
+    },
+    {
+      "label": "Total Annual Fees",
+      "column": "Annual_Fees",
+      "agg": "sum",
+      "fmt": "num",
+      "value": 3001510.0
+    },
+    {
+      "label": "Total Customer Acq Cost",
+      "column": "Customer_Acq_Cost",
+      "agg": "sum",
+      "fmt": "num",
+      "value": 991160.0
+    },
+    {
+      "label": "Total Revolving Bal",
+      "column": "Total_Revolving_Bal",
+      "agg": "sum",
+      "fmt": "num",
+      "value": 11980745.0
+    },
+    {
+      "label": "Total Trans Amt",
+      "column": "Total_Trans_Amt",
+      "agg": "sum",
+      "fmt": "num",
+      "value": 45533021.0
+    },
+    {
+      "label": "Total Trans Vol",
+      "column": "Total_Trans_Vol",
+      "agg": "sum",
+      "fmt": "num",
+      "value": 667234.0
+    },
+    {
+      "label": "Total Interest Earned",
+      "column": "Interest_Earned",
+      "agg": "sum",
+      "fmt": "num",
+      "value": 7982479.8100000005
+    },
+    {
+      "label": "Avg Revenue per Record",
+      "column": "Revenue",
+      "agg": "avg",
+      "fmt": "num",
+      "value": 1067.132013018556
+    },
+    {
+      "label": "Activation 30 Days Rate",
+      "column": "Activation_30_Days",
+      "agg": "rate",
+      "fmt": "pct",
+      "value": 0.5745652385116098
+    },
+    {
+      "label": "Avg Credit Limit",
+      "column": "Credit_Limit",
+      "agg": "avg",
+      "fmt": "num",
+      "value": 8642.414845040319
+    },
+    {
+      "label": "Avg Utilization Ratio",
+      "column": "Avg_Utilization_Ratio",
+      "agg": "avg",
+      "fmt": "pct",
+      "value": 0.27453541241620516
+    },
+    {
+      "label": "Delinquent Acc Rate",
+      "column": "Delinquent_Acc",
+      "agg": "rate",
+      "fmt": "pct",
+      "value": 0.0606237248615564
+    },
+    {
+      "label": "Avg Customer Age",
+      "column": "Customer_Age",
+      "agg": "avg",
+      "fmt": "num",
+      "value": 46.26979500631497
+    },
+    {
+      "label": "Avg Income",
+      "column": "Income",
+      "agg": "avg",
+      "fmt": "num",
+      "value": 57087.319829010004
+    }
+  ],
+  "insights": [
+    {
+      "type": "overview",
+      "title": "Dataset overview",
+      "text": "10,293 records across 3 table(s) from 2023-01-01 to 2023-12-31 (weekly data). Primary measure analysed: Revenue."
+    },
+    {
+      "type": "driver",
+      "title": "Income Band: where Revenue comes from",
+      "text": "'3-High' contributes 51.5% of total Revenue (33.3% of records). Average Revenue per record ranges from 603.08 ('1-Low') to 1,647.27 ('3-High'); difference is statistically significant (Kruskal p<0.001) with a meaningful effect size (eta\u00b2=0.351)."
+    },
+    {
+      "type": "driver",
+      "title": "Customer Job: where Revenue comes from",
+      "text": "'Businessman' contributes 28.8% of total Revenue (18.8% of records). Average Revenue per record ranges from 723.94 ('Selfemployeed') to 1,632.35 ('Businessman'); difference is statistically significant (Kruskal p<0.001) with a meaningful effect size (eta\u00b2=0.188)."
+    },
+    {
+      "type": "driver",
+      "title": "Card Category: where Revenue comes from",
+      "text": "'Blue' contributes 85.1% of total Revenue (91.2% of records). Average Revenue per record ranges from 996.15 ('Blue') to 2,291.81 ('Gold'); difference is statistically significant (Kruskal p<0.001) with a meaningful effect size (eta\u00b2=0.122)."
+    },
+    {
+      "type": "trend",
+      "title": "Trend & seasonality",
+      "text": "Revenue per week period is falling by 0.08% per period (no statistically significant trend, p=0.099, R\u00b2=0.05). Peak: 2023-07-02 (240.1K); low: 2023-12-24 (184.5K). Second half vs first half: -0.4%."
+    },
+    {
+      "type": "forecast",
+      "title": "Forecast reliability",
+      "text": "Damped-trend forecast backtest on the last 11 periods: MAPE 4.5% vs naive 6.5% vs mean 6.1%. The model beats both baselines - use the forecast as a planning guide."
+    },
+    {
+      "type": "correlation",
+      "title": "Strongest relationship",
+      "text": "Total Trans Amt and Income move together (Pearson r=0.93, Spearman 0.99). 12 more pair(s) with |r|>=0.5."
+    },
+    {
+      "type": "risk",
+      "title": "Drivers of Delinquent Acc",
+      "text": "Delinquent Acc: 6.06% of records (624 of 10,293). No categorical segment shows a statistically significant and practically meaningful difference in rate. The rate is NOT uniform over time (chi-square p<0.001, V=0.15): it peaks at 21.1% in the period starting 2023-01-01 and drops to 0.0% in the period starting 2023-12-24. A gradient-boosting model using 31 fields reaches cross-validated AUC 0.581 (\u00b10.036) -> weak signal. Most informative fields: Week Num (AUC drop 0.061), state cd (AUC drop 0.010), Customer Acq Cost (AUC drop 0.006)."
+    },
+    {
+      "type": "segments",
+      "title": "Customer / record segmentation",
+      "text": "K-means found k=2 segments (silhouette 0.16 -> weak structure). Natural clusters are weak, so segments are exploratory rather than actionable."
+    },
+    {
+      "type": "quality",
+      "title": "Data quality caveats",
+      "text": "Dim_Customer.Zipcode: 97.8% of rows share one value - unusable as a dimension / geo key"
+    }
+  ],
+  "warnings": [],
+  "powerbi": {
+    "pbip": "outputs/credit_card/powerbi/Credit_Card_Analytics.pbip",
+    "semantic_model": "outputs/credit_card/powerbi/Credit_Card_Analytics.SemanticModel",
+    "report": "outputs/credit_card/powerbi/Credit_Card_Analytics.Report",
+    "n_measures": 21,
+    "n_pages": 4,
+    "n_visuals": 35,
+    "pages": [
+      "Overview",
+      "Segments",
+      "Delinquent Acc Risk",
+      "Data"
+    ],
+    "safe_name": "Credit_Card_Analytics",
+    "data_folder": "C:\\AutoBI\\Credit_Card_Analytics\\clean"
+  }
+}

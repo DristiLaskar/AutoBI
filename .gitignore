@@ -1,0 +1,26 @@
+
+# Python virtual environments
+.venv/
+venv/
+env/
+
+# Python cache
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# VS Code and system files
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.log
+*.tmp
+
+# Generated runtime output
+output/
+
+# Power BI local cache
+**/.pbi/localSettings.json
+**/.pbi/cache.abf

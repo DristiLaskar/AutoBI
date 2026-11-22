@@ -1,0 +1,223 @@
+table Fact_Credit_Card
+
+	measure Records = COUNTROWS('Fact_Credit_Card')
+		formatString: #,0
+		displayFolder: KPIs
+
+	measure 'Unique Clients' = DISTINCTCOUNT('Fact_Credit_Card'[Client_Num])
+		formatString: #,0
+		displayFolder: KPIs
+
+	measure 'Total Revenue' = SUM('Fact_Credit_Card'[Revenue])
+		formatString: #,0
+		displayFolder: KPIs
+
+	measure 'Total Annual Fees' = SUM('Fact_Credit_Card'[Annual_Fees])
+		formatString: #,0
+		displayFolder: KPIs
+
+	measure 'Total Customer Acq Cost' = SUM('Fact_Credit_Card'[Customer_Acq_Cost])
+		formatString: #,0
+		displayFolder: KPIs
+
+	measure 'Total Revolving Bal' = SUM('Fact_Credit_Card'[Total_Revolving_Bal])
+		formatString: #,0
+		displayFolder: KPIs
+
+	measure 'Total Trans Amt' = SUM('Fact_Credit_Card'[Total_Trans_Amt])
+		formatString: #,0
+		displayFolder: KPIs
+
+	measure 'Total Trans Vol' = SUM('Fact_Credit_Card'[Total_Trans_Vol])
+		formatString: #,0
+		displayFolder: KPIs
+
+	measure 'Total Interest Earned' = SUM('Fact_Credit_Card'[Interest_Earned])
+		formatString: #,0
+		displayFolder: KPIs
+
+	measure 'Avg Revenue per Record' = AVERAGE('Fact_Credit_Card'[Revenue])
+		formatString: #,0.00
+		displayFolder: KPIs
+
+	measure 'Activation 30 Days Rate' = AVERAGE('Fact_Credit_Card'[Activation_30_Days])
+		formatString: 0.00%
+		displayFolder: Rates
+
+	measure 'Avg Credit Limit' = AVERAGE('Fact_Credit_Card'[Credit_Limit])
+		formatString: #,0.00
+		displayFolder: KPIs
+
+	measure 'Avg Utilization Ratio' = AVERAGE('Fact_Credit_Card'[Avg_Utilization_Ratio])
+		formatString: 0.0%
+		displayFolder: Rates
+
+	measure 'Delinquent Acc Rate' = AVERAGE('Fact_Credit_Card'[Delinquent_Acc])
+		formatString: 0.00%
+		displayFolder: Rates
+
+	measure 'Avg Customer Age' = AVERAGEX('Fact_Credit_Card', RELATED('Dim_Customer'[Customer_Age]))
+		formatString: #,0.00
+		displayFolder: KPIs
+
+	measure 'Avg Income' = AVERAGEX('Fact_Credit_Card', RELATED('Dim_Customer'[Income]))
+		formatString: #,0.00
+		displayFolder: KPIs
+
+	measure 'Revenue % of Total' = DIVIDE([Total Revenue], CALCULATE([Total Revenue], ALLSELECTED()))
+		formatString: 0.0%
+		displayFolder: KPIs
+
+	measure 'Revenue MoM %' = VAR cur = [Total Revenue] VAR prev = CALCULATE([Total Revenue], DATEADD('Dim_Date'[Date], -1, MONTH)) RETURN IF(NOT ISBLANK(prev), DIVIDE(cur - prev, prev))
+		formatString: +0.0%;-0.0%;0.0%
+		displayFolder: Time Intelligence
+
+	measure 'Revenue YTD' = TOTALYTD([Total Revenue], 'Dim_Date'[Date])
+		formatString: #,0
+		displayFolder: Time Intelligence
+
+	measure 'Delinquent Acc Count' = SUM('Fact_Credit_Card'[Delinquent_Acc])
+		formatString: #,0
+		displayFolder: Rates
+
+	measure 'Delinquent Acc Lift vs Overall' = DIVIDE([Delinquent Acc Rate], CALCULATE([Delinquent Acc Rate], ALLSELECTED()))
+		formatString: 0.00"x"
+		displayFolder: Rates
+
+	column Client_Num
+		dataType: int64
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: Client_Num
+
+	column Card_Category
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Card_Category
+
+	column Annual_Fees
+		dataType: int64
+		formatString: #,0
+		summarizeBy: none
+		sourceColumn: Annual_Fees
+
+	column Activation_30_Days
+		dataType: int64
+		formatString: #,0
+		summarizeBy: none
+		sourceColumn: Activation_30_Days
+
+	column Customer_Acq_Cost
+		dataType: int64
+		formatString: #,0
+		summarizeBy: none
+		sourceColumn: Customer_Acq_Cost
+
+	column Week_Start_Date
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		summarizeBy: none
+		sourceColumn: Week_Start_Date
+
+	column Week_Num
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Week_Num
+
+	column Qtr
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Qtr
+
+	column current_year
+		dataType: int64
+		formatString: #,0
+		summarizeBy: none
+		sourceColumn: current_year
+
+	column Credit_Limit
+		dataType: double
+		formatString: #,0.00
+		summarizeBy: none
+		sourceColumn: Credit_Limit
+
+	column Total_Revolving_Bal
+		dataType: int64
+		formatString: #,0
+		summarizeBy: none
+		sourceColumn: Total_Revolving_Bal
+
+	column Total_Trans_Amt
+		dataType: int64
+		formatString: #,0
+		summarizeBy: none
+		sourceColumn: Total_Trans_Amt
+
+	column Total_Trans_Vol
+		dataType: int64
+		formatString: #,0
+		summarizeBy: none
+		sourceColumn: Total_Trans_Vol
+
+	column Avg_Utilization_Ratio
+		dataType: double
+		formatString: 0.0%
+		summarizeBy: none
+		sourceColumn: Avg_Utilization_Ratio
+
+	column Use_Chip
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Use_Chip
+
+	column Exp_Type
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Exp_Type
+
+	column Interest_Earned
+		dataType: double
+		formatString: #,0.00
+		summarizeBy: none
+		sourceColumn: Interest_Earned
+
+	column Delinquent_Acc
+		dataType: int64
+		formatString: #,0
+		summarizeBy: none
+		sourceColumn: Delinquent_Acc
+
+	column Source_File
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: Source_File
+
+	column Revenue
+		dataType: double
+		formatString: #,0.00
+		summarizeBy: none
+		sourceColumn: Revenue
+
+	column Net_Revenue
+		dataType: double
+		formatString: #,0.00
+		summarizeBy: none
+		sourceColumn: Net_Revenue
+
+	column Credit_Limit_Band
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Credit_Limit_Band
+
+	partition Fact_Credit_Card = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataFolder & "\Fact_Credit_Card.csv"), [Delimiter=",", Columns=22, Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers", {{"Client_Num", Int64.Type}, {"Card_Category", type text}, {"Annual_Fees", Int64.Type}, {"Activation_30_Days", Int64.Type}, {"Customer_Acq_Cost", Int64.Type}, {"Week_Start_Date", type date}, {"Week_Num", type text}, {"Qtr", type text}, {"current_year", Int64.Type}, {"Credit_Limit", type number}, {"Total_Revolving_Bal", Int64.Type}, {"Total_Trans_Amt", Int64.Type}, {"Total_Trans_Vol", Int64.Type}, {"Avg_Utilization_Ratio", type number}, {"Use_Chip", type text}, {"Exp_Type", type text}, {"Interest_Earned", type number}, {"Delinquent_Acc", Int64.Type}, {"Source_File", type text}, {"Revenue", type number}, {"Net_Revenue", type number}, {"Credit_Limit_Band", type text}}, "en-US")
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table

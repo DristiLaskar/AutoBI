@@ -1,0 +1,274 @@
+{
+  "name": "Fashion Ecommerce Demo (synthetic)",
+  "generated": "2026-11-22 13:32",
+  "sources": {
+    "Orders": {
+      "file": "ecommerce_orders.xlsx",
+      "sheet": "Orders"
+    },
+    "Products": {
+      "file": "ecommerce_orders.xlsx",
+      "sheet": "Products"
+    },
+    "Customers": {
+      "file": "ecommerce_orders.xlsx",
+      "sheet": "Customers"
+    }
+  },
+  "tables": {
+    "Fact_Orders": {
+      "rows": 12000,
+      "cols": 8
+    },
+    "Dim_Customers": {
+      "rows": 1500,
+      "cols": 6
+    },
+    "Dim_Products": {
+      "rows": 220,
+      "cols": 4
+    },
+    "Dim_Date": {
+      "rows": 366,
+      "cols": 11
+    }
+  },
+  "fact": "Fact_Orders",
+  "dims": [
+    "Dim_Customers",
+    "Dim_Products"
+  ],
+  "relationships": [
+    {
+      "from_table": "Fact_Orders",
+      "from_col": "customer_id",
+      "to_table": "Dim_Customers",
+      "to_col": "customer_id",
+      "cardinality": "many_to_one",
+      "match_pct": 100.0,
+      "observed_one_to_one": false
+    },
+    {
+      "from_table": "Fact_Orders",
+      "from_col": "product_id",
+      "to_table": "Dim_Products",
+      "to_col": "product_id",
+      "cardinality": "many_to_one",
+      "match_pct": 100.0,
+      "observed_one_to_one": false
+    },
+    {
+      "from_table": "Fact_Orders",
+      "from_col": "order_date",
+      "to_table": "Dim_Date",
+      "to_col": "Date",
+      "cardinality": "many_to_one",
+      "match_pct": 100.0,
+      "observed_one_to_one": false
+    }
+  ],
+  "date": {
+    "fact_column": "order_date",
+    "dim_table": "Dim_Date",
+    "dim_column": "Date",
+    "min": "2024-01-01",
+    "max": "2024-12-31",
+    "n_dates": 366,
+    "span_days": 366,
+    "grain": "daily"
+  },
+  "appends": [],
+  "model_log": [
+    "added band column Customers.age_Group from age"
+  ],
+  "cleaning": [
+    {
+      "table": "Orders",
+      "rows_in": 12000,
+      "cols_in": 8,
+      "warnings": [],
+      "actions": [],
+      "dates": {
+        "order_date": {
+          "format": "native datetime",
+          "ambiguous": false
+        }
+      },
+      "duplicates_removed": 0,
+      "rows_out": 12000,
+      "cols_out": 8,
+      "source": {
+        "file": "ecommerce_orders.xlsx",
+        "sheet": "Orders"
+      }
+    },
+    {
+      "table": "Products",
+      "rows_in": 220,
+      "cols_in": 4,
+      "warnings": [],
+      "actions": [],
+      "duplicates_removed": 0,
+      "rows_out": 220,
+      "cols_out": 4,
+      "source": {
+        "file": "ecommerce_orders.xlsx",
+        "sheet": "Products"
+      }
+    },
+    {
+      "table": "Customers",
+      "rows_in": 1500,
+      "cols_in": 5,
+      "warnings": [],
+      "actions": [],
+      "dates": {
+        "signup_date": {
+          "format": "native datetime",
+          "ambiguous": false
+        }
+      },
+      "duplicates_removed": 0,
+      "rows_out": 1500,
+      "cols_out": 5,
+      "source": {
+        "file": "ecommerce_orders.xlsx",
+        "sheet": "Customers"
+      }
+    }
+  ],
+  "quality": [
+    {
+      "table": "Fact_Orders",
+      "column": "net_amount",
+      "type": "outliers",
+      "severity": "low",
+      "detail": "208 extreme values (beyond 3xIQR) - kept, not removed"
+    }
+  ],
+  "primary_measure": "net_amount",
+  "target": "returned",
+  "entity": "order_id",
+  "kpis": [
+    {
+      "label": "Records",
+      "column": null,
+      "agg": "rows",
+      "fmt": "int",
+      "value": 12000
+    },
+    {
+      "label": "Unique Orders",
+      "column": "order_id",
+      "agg": "distinct",
+      "fmt": "int",
+      "value": 12000
+    },
+    {
+      "label": "Total net amount",
+      "column": "net_amount",
+      "agg": "sum",
+      "fmt": "num",
+      "value": 22169456.16
+    },
+    {
+      "label": "Total mrp",
+      "column": "mrp",
+      "agg": "sum",
+      "fmt": "num",
+      "value": 19664906.0
+    },
+    {
+      "label": "Avg net amount per Record",
+      "column": "net_amount",
+      "agg": "avg",
+      "fmt": "num",
+      "value": 1847.45468
+    },
+    {
+      "label": "Avg discount pct",
+      "column": "discount_pct",
+      "agg": "avg",
+      "fmt": "pct",
+      "value": 0.2991216666666667
+    },
+    {
+      "label": "returned Rate",
+      "column": "returned",
+      "agg": "rate",
+      "fmt": "pct",
+      "value": 0.08175
+    },
+    {
+      "label": "Avg age",
+      "column": "age",
+      "agg": "avg",
+      "fmt": "num",
+      "value": 36.8565
+    }
+  ],
+  "insights": [
+    {
+      "type": "overview",
+      "title": "Dataset overview",
+      "text": "12,000 records across 4 table(s) from 2024-01-01 to 2024-12-31 (daily data). Primary measure analysed: net amount."
+    },
+    {
+      "type": "driver",
+      "title": "category: where net amount comes from",
+      "text": "'Sneakers' contributes 31.3% of total net amount (17.9% of records). Average net amount per record ranges from 640.69 ('Tshirts') to 3,814.05 ('Jackets'); difference is statistically significant (Kruskal p<0.001) with a meaningful effect size (eta\u00b2=0.417)."
+    },
+    {
+      "type": "driver",
+      "title": "quantity: where net amount comes from",
+      "text": "'3' contributes 37.9% of total net amount (20.0% of records). Average net amount per record ranges from 1,145.15 ('1') to 3,503.76 ('3'); difference is statistically significant (Kruskal p<0.001) with a meaningful effect size (eta\u00b2=0.320)."
+    },
+    {
+      "type": "driver",
+      "title": "brand: where net amount comes from",
+      "text": "'Roadster' contributes 16.2% of total net amount (15.7% of records). Average net amount per record ranges from 1,617.53 ('Nike') to 2,292.69 ('Libas'); difference is statistically significant (Kruskal p<0.001) with a meaningful effect size (eta\u00b2=0.010)."
+    },
+    {
+      "type": "trend",
+      "title": "Trend & seasonality",
+      "text": "net amount per month period is rising by 3.58% per period (statistically significant, p=0.010, R\u00b2=0.51). Peak: 2024-10-01 (2.55M); low: 2024-07-01 (1.59M). Second half vs first half: +22.2%. 3 anomalous period(s) detected (robust z>3.5)."
+    },
+    {
+      "type": "forecast",
+      "title": "Forecast reliability",
+      "text": "Damped-trend forecast backtest on the last 3 periods: MAPE 25.8% vs naive 25.4% vs mean 29.6%. It does NOT beat a simple baseline, so treat the forecast as indicative only."
+    },
+    {
+      "type": "correlation",
+      "title": "Strongest relationship",
+      "text": "net amount and mrp move together (Pearson r=0.71, Spearman 0.81)."
+    },
+    {
+      "type": "risk",
+      "title": "Drivers of returned",
+      "text": "returned: 8.18% of records (981 of 12,000). No categorical segment shows a statistically significant and practically meaningful difference in rate. A gradient-boosting model using 10 fields reaches cross-validated AUC 0.639 (\u00b10.027) -> weak signal. Most informative fields: discount pct (AUC drop 0.144)."
+    },
+    {
+      "type": "segments",
+      "title": "Customer / record segmentation",
+      "text": "K-means found k=2 segments (silhouette 0.28 -> moderate structure). Low mrp / Low net amount / High discount pct (58%); High mrp / High net amount / Low discount pct (42%)."
+    }
+  ],
+  "warnings": [],
+  "powerbi": {
+    "pbip": "outputs/ecommerce_demo/powerbi/Fashion_Ecommerce_Demo_synthetic.pbip",
+    "semantic_model": "outputs/ecommerce_demo/powerbi/Fashion_Ecommerce_Demo_synthetic.SemanticModel",
+    "report": "outputs/ecommerce_demo/powerbi/Fashion_Ecommerce_Demo_synthetic.Report",
+    "n_measures": 13,
+    "n_pages": 4,
+    "n_visuals": 33,
+    "pages": [
+      "Overview",
+      "Segments",
+      "returned Risk",
+      "Data"
+    ],
+    "safe_name": "Fashion_Ecommerce_Demo_synthetic",
+    "data_folder": "C:\\AutoBI\\Fashion_Ecommerce_Demo_synthetic_\\clean"
+  }
+}

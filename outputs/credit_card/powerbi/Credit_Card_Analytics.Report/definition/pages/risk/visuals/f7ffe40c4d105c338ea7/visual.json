@@ -1,0 +1,38 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "name": "f7ffe40c4d105c338ea7",
+  "position": {
+    "x": 230.0,
+    "y": 15.0,
+    "z": 0,
+    "height": 90.0,
+    "width": 330.0,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_Credit_Card"
+                    }
+                  },
+                  "Property": "Delinquent Acc Rate"
+                }
+              },
+              "queryRef": "Fact_Credit_Card.Delinquent Acc Rate",
+              "nativeQueryRef": "Delinquent Acc Rate"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

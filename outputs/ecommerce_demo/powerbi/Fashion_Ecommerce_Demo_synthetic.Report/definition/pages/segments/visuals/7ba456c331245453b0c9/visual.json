@@ -1,0 +1,38 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "name": "7ba456c331245453b0c9",
+  "position": {
+    "x": 20.0,
+    "y": 265.0,
+    "z": 2000,
+    "height": 150.0,
+    "width": 200.0,
+    "tabOrder": 2000
+  },
+  "visual": {
+    "visualType": "slicer",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_Orders"
+                    }
+                  },
+                  "Property": "quantity"
+                }
+              },
+              "queryRef": "Fact_Orders.quantity",
+              "nativeQueryRef": "quantity"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

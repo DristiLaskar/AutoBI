@@ -1,0 +1,38 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "name": "a8da94bd5f2c58c5b327",
+  "position": {
+    "x": 646.0,
+    "y": 15.0,
+    "z": 3000,
+    "height": 90.0,
+    "width": 196.66666666666666,
+    "tabOrder": 3000
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_Credit_Card"
+                    }
+                  },
+                  "Property": "Records"
+                }
+              },
+              "queryRef": "Fact_Credit_Card.Records",
+              "nativeQueryRef": "Records"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

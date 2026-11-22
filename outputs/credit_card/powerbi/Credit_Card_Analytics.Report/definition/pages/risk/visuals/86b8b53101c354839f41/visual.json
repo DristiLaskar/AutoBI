@@ -1,0 +1,79 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "name": "86b8b53101c354839f41",
+  "position": {
+    "x": 578.0,
+    "y": 380.0,
+    "z": 9000,
+    "height": 320.0,
+    "width": 334.0,
+    "tabOrder": 9000
+  },
+  "visual": {
+    "visualType": "clusteredBarChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dim_Customer"
+                    }
+                  },
+                  "Property": "Customer_Age_Group"
+                }
+              },
+              "queryRef": "Dim_Customer.Customer_Age_Group",
+              "nativeQueryRef": "Customer_Age_Group",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_Credit_Card"
+                    }
+                  },
+                  "Property": "Delinquent Acc Rate"
+                }
+              },
+              "queryRef": "Fact_Credit_Card.Delinquent Acc Rate",
+              "nativeQueryRef": "Delinquent Acc Rate"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true,
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Delinquent Acc rate by Customer Age Group'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

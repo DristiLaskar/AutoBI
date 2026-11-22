@@ -1,0 +1,7 @@
+relationship 596f726c-9532-50e2-a4d1-4a4eac9928d9
+	fromColumn: Fact_Credit_Card.Client_Num
+	toColumn: Dim_Customer.Client_Num
+
+relationship 468883a3-dec9-529e-98b9-19995db5bdcc
+	fromColumn: Fact_Credit_Card.Week_Start_Date
+	toColumn: Dim_Date.Date

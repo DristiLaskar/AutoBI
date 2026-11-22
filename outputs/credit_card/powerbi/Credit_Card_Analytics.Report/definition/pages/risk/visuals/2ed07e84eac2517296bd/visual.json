@@ -1,0 +1,38 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "name": "2ed07e84eac2517296bd",
+  "position": {
+    "x": 20.0,
+    "y": 370.0,
+    "z": 5000,
+    "height": 150.0,
+    "width": 200.0,
+    "tabOrder": 5000
+  },
+  "visual": {
+    "visualType": "slicer",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dim_Customer"
+                    }
+                  },
+                  "Property": "Customer_Job"
+                }
+              },
+              "queryRef": "Dim_Customer.Customer_Job",
+              "nativeQueryRef": "Customer_Job"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

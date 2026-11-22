@@ -1,0 +1,40 @@
+// AutoBI generated measures (already inside the semantic model; copy if you build the model manually)
+
+Records =
+    COUNTROWS('Fact_Orders')
+
+Unique Orders =
+    DISTINCTCOUNT('Fact_Orders'[order_id])
+
+Total net amount =
+    SUM('Fact_Orders'[net_amount])
+
+Total mrp =
+    SUMX('Fact_Orders', RELATED('Dim_Products'[mrp]))
+
+Avg net amount per Record =
+    AVERAGE('Fact_Orders'[net_amount])
+
+Avg discount pct =
+    AVERAGE('Fact_Orders'[discount_pct])
+
+returned Rate =
+    AVERAGE('Fact_Orders'[returned])
+
+Avg age =
+    AVERAGEX('Fact_Orders', RELATED('Dim_Customers'[age]))
+
+net amount % of Total =
+    DIVIDE([Total net amount], CALCULATE([Total net amount], ALLSELECTED()))
+
+net amount MoM % =
+    VAR cur = [Total net amount] VAR prev = CALCULATE([Total net amount], DATEADD('Dim_Date'[Date], -1, MONTH)) RETURN IF(NOT ISBLANK(prev), DIVIDE(cur - prev, prev))
+
+net amount YTD =
+    TOTALYTD([Total net amount], 'Dim_Date'[Date])
+
+returned Count =
+    SUM('Fact_Orders'[returned])
+
+returned Lift vs Overall =
+    DIVIDE([returned Rate], CALCULATE([returned Rate], ALLSELECTED()))

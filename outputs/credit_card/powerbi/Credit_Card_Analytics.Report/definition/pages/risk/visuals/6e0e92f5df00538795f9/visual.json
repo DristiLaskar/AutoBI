@@ -1,0 +1,38 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "name": "6e0e92f5df00538795f9",
+  "position": {
+    "x": 20.0,
+    "y": 210.0,
+    "z": 4000,
+    "height": 150.0,
+    "width": 200.0,
+    "tabOrder": 4000
+  },
+  "visual": {
+    "visualType": "slicer",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dim_Customer"
+                    }
+                  },
+                  "Property": "Income_Band"
+                }
+              },
+              "queryRef": "Dim_Customer.Income_Band",
+              "nativeQueryRef": "Income_Band"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

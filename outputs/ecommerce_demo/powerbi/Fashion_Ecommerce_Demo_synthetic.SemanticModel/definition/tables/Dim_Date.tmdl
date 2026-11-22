@@ -1,0 +1,80 @@
+table Dim_Date
+	dataCategory: Time
+
+	column Date
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		isKey
+		summarizeBy: none
+		sourceColumn: Date
+
+	column Year
+		dataType: int64
+		formatString: #,0
+		summarizeBy: none
+		sourceColumn: Year
+
+	column Quarter_Num
+		dataType: int64
+		formatString: #,0
+		summarizeBy: none
+		sourceColumn: Quarter_Num
+
+	column Quarter
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Quarter
+		sortByColumn: Quarter_Num
+
+	column Month_Num
+		dataType: int64
+		formatString: #,0
+		summarizeBy: none
+		sourceColumn: Month_Num
+
+	column Month
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Month
+		sortByColumn: Month_Num
+
+	column Year_Month
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Year_Month
+
+	column Week_Of_Year
+		dataType: int64
+		formatString: #,0
+		summarizeBy: none
+		sourceColumn: Week_Of_Year
+
+	column Day_Of_Week_Num
+		dataType: int64
+		formatString: #,0
+		summarizeBy: none
+		sourceColumn: Day_Of_Week_Num
+
+	column Day_Name
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Day_Name
+		sortByColumn: Day_Of_Week_Num
+
+	column Is_Weekend
+		dataType: int64
+		formatString: #,0
+		summarizeBy: none
+		sourceColumn: Is_Weekend
+
+	partition Dim_Date = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataFolder & "\Dim_Date.csv"), [Delimiter=",", Columns=11, Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers", {{"Date", type date}, {"Year", Int64.Type}, {"Quarter_Num", Int64.Type}, {"Quarter", type text}, {"Month_Num", Int64.Type}, {"Month", type text}, {"Year_Month", type text}, {"Week_Of_Year", Int64.Type}, {"Day_Of_Week_Num", Int64.Type}, {"Day_Name", type text}, {"Is_Weekend", Int64.Type}}, "en-US")
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table

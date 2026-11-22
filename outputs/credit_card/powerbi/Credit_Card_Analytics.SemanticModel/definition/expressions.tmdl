@@ -1,0 +1,5 @@
+expression DataFolder = "C:\AutoBI\credit_card\clean" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 6d1cd201-63ac-5fa6-bdf6-48a1b6082b50
+	queryGroup: Parameters
+
+	annotation PBI_ResultType = Text

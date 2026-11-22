@@ -1,0 +1,122 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "name": "2dd0b7d80e5b52d4a9b6",
+  "position": {
+    "x": 20.0,
+    "y": 15.0,
+    "z": 0,
+    "height": 685.0,
+    "width": 1240.0,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_Credit_Card"
+                    }
+                  },
+                  "Property": "Client_Num"
+                }
+              },
+              "queryRef": "Fact_Credit_Card.Client_Num",
+              "nativeQueryRef": "Client_Num"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_Credit_Card"
+                    }
+                  },
+                  "Property": "Week_Start_Date"
+                }
+              },
+              "queryRef": "Fact_Credit_Card.Week_Start_Date",
+              "nativeQueryRef": "Week_Start_Date"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dim_Customer"
+                    }
+                  },
+                  "Property": "Income_Band"
+                }
+              },
+              "queryRef": "Dim_Customer.Income_Band",
+              "nativeQueryRef": "Income_Band"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dim_Customer"
+                    }
+                  },
+                  "Property": "Customer_Job"
+                }
+              },
+              "queryRef": "Dim_Customer.Customer_Job",
+              "nativeQueryRef": "Customer_Job"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_Credit_Card"
+                    }
+                  },
+                  "Property": "Card_Category"
+                }
+              },
+              "queryRef": "Fact_Credit_Card.Card_Category",
+              "nativeQueryRef": "Card_Category"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dim_Customer"
+                    }
+                  },
+                  "Property": "Gender"
+                }
+              },
+              "queryRef": "Dim_Customer.Gender",
+              "nativeQueryRef": "Gender"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_Credit_Card"
+                    }
+                  },
+                  "Property": "Revenue"
+                }
+              },
+              "queryRef": "Fact_Credit_Card.Revenue",
+              "nativeQueryRef": "Revenue"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

@@ -1,0 +1,122 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "name": "2dd0b7d80e5b52d4a9b6",
+  "position": {
+    "x": 20.0,
+    "y": 15.0,
+    "z": 0,
+    "height": 685.0,
+    "width": 1240.0,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_Orders"
+                    }
+                  },
+                  "Property": "order_id"
+                }
+              },
+              "queryRef": "Fact_Orders.order_id",
+              "nativeQueryRef": "order_id"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_Orders"
+                    }
+                  },
+                  "Property": "order_date"
+                }
+              },
+              "queryRef": "Fact_Orders.order_date",
+              "nativeQueryRef": "order_date"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dim_Products"
+                    }
+                  },
+                  "Property": "category"
+                }
+              },
+              "queryRef": "Dim_Products.category",
+              "nativeQueryRef": "category"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_Orders"
+                    }
+                  },
+                  "Property": "quantity"
+                }
+              },
+              "queryRef": "Fact_Orders.quantity",
+              "nativeQueryRef": "quantity"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dim_Products"
+                    }
+                  },
+                  "Property": "brand"
+                }
+              },
+              "queryRef": "Dim_Products.brand",
+              "nativeQueryRef": "brand"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dim_Customers"
+                    }
+                  },
+                  "Property": "age_Group"
+                }
+              },
+              "queryRef": "Dim_Customers.age_Group",
+              "nativeQueryRef": "age_Group"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_Orders"
+                    }
+                  },
+                  "Property": "net_amount"
+                }
+              },
+              "queryRef": "Fact_Orders.net_amount",
+              "nativeQueryRef": "net_amount"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

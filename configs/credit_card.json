@@ -1,0 +1,11 @@
+{
+  "name": "Credit Card Analytics",
+  "date_column": "Week_Start_Date",
+  "dayfirst": true,
+  "derived": {
+    "Revenue": "Interest_Earned + Annual_Fees",
+    "Net_Revenue": "Interest_Earned + Annual_Fees - Customer_Acq_Cost"
+  },
+  "primary_measure": "Revenue",
+  "target": "Delinquent_Acc"
+}

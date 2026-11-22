@@ -1,0 +1,38 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "name": "a340e7d59b4a5d27b965",
+  "position": {
+    "x": 228.66666666666666,
+    "y": 15.0,
+    "z": 1000,
+    "height": 90.0,
+    "width": 196.66666666666666,
+    "tabOrder": 1000
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_Orders"
+                    }
+                  },
+                  "Property": "Avg net amount per Record"
+                }
+              },
+              "queryRef": "Fact_Orders.Avg net amount per Record",
+              "nativeQueryRef": "Avg net amount per Record"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}
